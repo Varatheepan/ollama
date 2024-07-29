@@ -1547,12 +1547,12 @@ struct llama_server_context
     }
 
     bool update_slots() {
-        // if (system_need_update)
-        // {
-        //     LOG_DEBUG("updating system prompt", {});
-        //     system_prompt_update();
-        // }
-        system_prompt_update();
+        if (system_need_update)
+        {
+            LOG_DEBUG("updating system prompt", {});
+            system_prompt_update();
+        }
+
         llama_batch_clear(batch);
 
         if (all_slots_are_idle)
