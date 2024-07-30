@@ -601,6 +601,7 @@ struct llama_server_context
         slot->sparams.min_keep          = json_value(data, "min_keep",          default_sparams.min_keep);
 
         slot->reset();
+        slot->kv_cache_clear();
         if (slot->n_predict > 0 && slot->params.n_predict > slot->n_predict) {
             // Might be better to reject the request with a 400 ?
             LOG_WARNING("Max tokens to predict exceeds server configuration", {
@@ -1699,19 +1700,19 @@ struct llama_server_context
                 // need process the prompt
                 if (slot.state == IDLE && slot.command == LOAD_PROMPT)
                 {
-                    slot.n_prompt_tokens        = 0;
-                    slot.generated_text         = "";
-                    slot.truncated              = false;
-                    slot.stopped_eos            = false;
-                    slot.stopped_word           = false;
-                    slot.stopped_limit          = false;
-                    slot.stopping_word          = "";
-                    slot.n_past                 = 0;
-                    slot.n_sent_text            = 0;
-                    slot.n_sent_token_probs     = 0;
-                    slot.ga_i                   = 0;
-                    slot.n_past_se              = 0;
-                    // generated_token_probs.clear();
+                    // slot.n_prompt_tokens        = 0;
+                    // slot.generated_text         = "";
+                    // slot.truncated              = false;
+                    // slot.stopped_eos            = false;
+                    // slot.stopped_word           = false;
+                    // slot.stopped_limit          = false;
+                    // slot.stopping_word          = "";
+                    // slot.n_past                 = 0;
+                    // slot.n_sent_text            = 0;
+                    // slot.n_sent_token_probs     = 0;
+                    // slot.ga_i                   = 0;
+                    // slot.n_past_se              = 0;
+                    // // generated_token_probs.clear();
 
                     slot.state = PROCESSING;
                     slot.command = NONE;
