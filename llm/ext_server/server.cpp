@@ -1711,7 +1711,7 @@ struct llama_server_context
                     slot.n_sent_token_probs     = 0;
                     slot.ga_i                   = 0;
                     slot.n_past_se              = 0;
-                    generated_token_probs.clear();
+                    // generated_token_probs.clear();
 
                     slot.state = PROCESSING;
                     slot.command = NONE;
