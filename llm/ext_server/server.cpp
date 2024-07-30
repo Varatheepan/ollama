@@ -601,7 +601,7 @@ struct llama_server_context
         slot->sparams.min_keep          = json_value(data, "min_keep",          default_sparams.min_keep);
 
         slot->reset();
-        slot->kv_cache_clear();
+        kv_cache_clear();
         if (slot->n_predict > 0 && slot->params.n_predict > slot->n_predict) {
             // Might be better to reject the request with a 400 ?
             LOG_WARNING("Max tokens to predict exceeds server configuration", {
