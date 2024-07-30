@@ -174,6 +174,32 @@ struct server_slot {
     // multitasks
     int multitask_id = -1;
 
+    void subReset() {
+        n_prompt_tokens        = 0;
+        generated_text         = "";
+        truncated              = false;
+        stopped_eos            = false;
+        stopped_word           = false;
+        stopped_limit          = false;
+        stopping_word          = "";
+        n_past                 = 0;
+        n_sent_text            = 0;
+        n_sent_token_probs     = 0;
+        ga_i                   = 0;
+        n_past_se              = 0;
+
+        generated_token_probs.clear();
+
+        // for (slot_image & img : images) {
+        //     free(img.image_embedding);
+        //     if (img.img_data) {
+        //         clip_image_u8_free(img.img_data);
+        //     }
+        //     img.prefix_prompt = "";
+        // }
+
+        // images.clear();
+    }
     void reset() {
         n_prompt_tokens        = 0;
         generated_text         = "";
@@ -1673,6 +1699,7 @@ struct llama_server_context
                 // need process the prompt
                 if (slot.state == IDLE && slot.command == LOAD_PROMPT)
                 {
+                    slot->subReset();
                     slot.state = PROCESSING;
                     slot.command = NONE;
                     std::vector<llama_token> prompt_tokens;
