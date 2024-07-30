@@ -1699,7 +1699,7 @@ struct llama_server_context
                 // need process the prompt
                 if (slot.state == IDLE && slot.command == LOAD_PROMPT)
                 {
-                    slot->subReset();
+                    slot.subReset();
                     slot.state = PROCESSING;
                     slot.command = NONE;
                     std::vector<llama_token> prompt_tokens;
